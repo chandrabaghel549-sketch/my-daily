@@ -1,0 +1,11 @@
+{
+  "name": "My Daily",
+  "short_name": "My Daily",
+  "description": "Your Everyday Life Companion",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f7fc",
+  "theme_color": "#17365d"
+}
