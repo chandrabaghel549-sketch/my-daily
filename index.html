@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#17365d">
 <title>My Daily — Version 0.2</title>
+<link rel="manifest" href="./manifest.json">
 <style>
 :root{
  --bg:#f5f7fc;--surface:#fff;--surface-2:#f0f4ff;--ink:#18243b;--muted:#78849a;
@@ -140,5 +141,14 @@ window.toggleHabit=i=>{habits[i].done=!habits[i].done;save('habits',habits);rend
 $('addHabit').onclick=()=>{let n=$('habitName').value.trim();if(!n)return alert('Enter a habit name.');habits.push({name:n,done:false});save('habits',habits);$('habitName').value='';renderHabits();};
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 renderExpenses();renderTasks();renderNotes();renderHabits();
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js")
+      .then(() => console.log("My Daily is ready"))
+      .catch(error => console.log(error));
+  });
+}
 </script>
 </body></html>
