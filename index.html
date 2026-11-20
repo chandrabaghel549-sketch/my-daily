@@ -173,7 +173,39 @@ function renderHabits(){$('habitList').innerHTML=habits.length?habits.map((h,i)=
 window.toggleHabit=i=>{habits[i].done=!habits[i].done;save('habits',habits);renderHabits();};window.delHabit=i=>{habits.splice(i,1);save('habits',habits);renderHabits();};
 $('addHabit').onclick=()=>{let n=$('habitName').value.trim();if(!n)return alert('Enter a habit name.');habits.push({name:n,done:false});save('habits',habits);$('habitName').value='';renderHabits();};
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-renderExpenses();renderTasks();renderNotes();renderHabits();
+
+$('exportData').onclick = () => {
+  const backupData = {
+    app: "My Daily",
+    version: "0.2",
+    exportedAt: new Date().toISOString(),
+    expenses: expenses,
+    tasks: tasks,
+    notes: notes,
+    habits: habits
+  };
+
+  const blob = new Blob(
+    [JSON.stringify(backupData, null, 2)],
+    { type: "application/json" }
+  );
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "my-daily-backup.json";
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+  $('backupMessage').textContent = "Your backup is ready!";
+};
+ 
+ renderExpenses();renderTasks();renderNotes();renderHabits();
 </script>
 <script>
 if ("serviceWorker" in navigator) {
