@@ -137,6 +137,13 @@ button:active,.tool:active{transform:scale(.985)}
     <h3>Backup & Data</h3>
     <p class="muted">Download a backup of your saved information.</p>
     <button class="btn" id="exportData">Download My Data</button>
+   
+<input type="file" id="backupFile" accept=".json,application/json" hidden>
+
+<button class="btn" type="button" id="restoreData">Restore Backup</button>
+
+<p id="restoreMessage" class="muted"></p>
+   
     <p id="backupMessage" class="muted"></p>
   </div>
 
